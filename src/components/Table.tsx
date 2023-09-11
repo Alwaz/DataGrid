@@ -1,10 +1,14 @@
 import React from 'react'
-import { ITableProps } from '../utils/constants'
+import { ITableProps, flattenNestedKeys } from '../utils/constants'
 import { Card, CardBody, Typography } from '@material-tailwind/react'
 
 
 
 const Table: React.FC<ITableProps> = ({ columns, data }) => {
+
+
+    const mappedData = flattenNestedKeys(data, columns);
+
     return (
         <Card className="h-80 w-90 ">
             <CardBody className="overflow-scroll px-0">
@@ -14,7 +18,7 @@ const Table: React.FC<ITableProps> = ({ columns, data }) => {
                             {columns.map((column) => (
                                 <th key={column.key} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
                                     <Typography
-                                        variant="small"
+                                        variant="h4"
                                         color="blue-gray"
                                         className="font-normal leading-none opacity-70"
                                     >
@@ -26,10 +30,10 @@ const Table: React.FC<ITableProps> = ({ columns, data }) => {
                         </tr>
                     </thead>
                     <tbody >
-                        {data?.map((item, rowIndex) => (
+                        {mappedData?.map((item: object, rowIndex: number) => (
+                            // TODO: Index shouldn't be used as key
                             <tr key={rowIndex}>
                                 {columns.map((column) => (
-
                                     <td key={column?.key}>
                                         <Typography
                                             variant="small"
@@ -38,7 +42,6 @@ const Table: React.FC<ITableProps> = ({ columns, data }) => {
                                         >
                                             {item[column.key]}
                                         </Typography>
-
                                     </td>
                                 ))}
                             </tr>

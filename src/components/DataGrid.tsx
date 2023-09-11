@@ -32,11 +32,11 @@ const DataGrid: React.FC<IDataGridProps> = ({ apiEndpoint, columns, jsonPath }) 
 
 
     useEffect(() => {
-        // Prepare chart dataset for columns configured to display charts
+        // Preparing labels and datasets for Chart
         const chartDataConfig: IChartData = {};
         columns.forEach((column) => {
             if (column.displayChart) {
-                const chartLabels = data.map((item) => item[column?.labelKey]); //This needs to be dynamic
+                const chartLabels = data.map((item) => item[column?.chartlabelKey]);
                 const chartDataset = {
                     label: column.label,
                     data: data.map((item) => item[column.key]),
