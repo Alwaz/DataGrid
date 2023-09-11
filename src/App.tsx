@@ -1,10 +1,14 @@
+import DataGrid from "./components/DataGrid"
+import { API, columns } from "./utils/constants"
+
 function App() {
 
-
   return (
-    <>
-      <h1>Data Grid Widget</h1>
-    </>
+    <DataGrid
+      apiEndpoint={API}
+      columns={columns}
+      jsonPath={'$.data.*'}
+    />
   )
 }
 
