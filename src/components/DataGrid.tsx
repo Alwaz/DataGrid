@@ -16,7 +16,7 @@ const DataGrid: React.FC<IDataGridProps> = ({ apiEndpoint, columns, jsonPath }) 
         try {
             const res = await axios.get(apiEndpoint);
             const apiData = res?.data
-            // Use JSONPath to extract data for each column
+            // JSONPath to extract data for each column
             const columnData = jsonpath.query(apiData, jsonPath);
             setData(columnData)
         } catch (error) {
@@ -32,22 +32,20 @@ const DataGrid: React.FC<IDataGridProps> = ({ apiEndpoint, columns, jsonPath }) 
 
 
     useEffect(() => {
-        // Prepare chart data for columns configured to display charts
+        // Prepare chart dataset for columns configured to display charts
         const chartDataConfig: IChartData = {};
         columns.forEach((column) => {
             if (column.displayChart) {
-                const chartType = column.chartType || 'bar';
-                const chartLabels = data.map((item) => item.category); //This needs to be dynamic
+                const chartLabels = data.map((item) => item[column?.labelKey]); //This needs to be dynamic
                 const chartDataset = {
                     label: column.label,
                     data: data.map((item) => item[column.key]),
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderColor: 'rgba(75, 192, 192, 1)',
+                    backgroundColor: ['aqua', 'red', 'orange'],
+                    borderColor: '#62749d',
                     borderWidth: 1,
                 };
 
                 chartDataConfig[column.key] = {
-                    type: chartType,
                     labels: chartLabels,
                     datasets: [chartDataset],
                 };

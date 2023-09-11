@@ -14,6 +14,7 @@ export interface IColumnConfig {
   dataType: Primitive;
   displayChart?: boolean;
   chartType?: ChartType;
+  labelKey?: string; // config the column name for chart label
 }
 
 export interface IDataGridProps {
@@ -39,10 +40,13 @@ export interface IDataRow {
 
 export interface IChartData {
   [key: string]: {
-    type: string;
     labels?: string[];
-    datasets: any[]; // specify type
+    datasets?: any[]; // specify type
   };
+}
+
+export interface IChartProps {
+  chartDataset: IChartData;
 }
 
 // Column Config
@@ -52,21 +56,23 @@ export const columns: IColumnConfig[] = [
     key: "user_id",
     dataType: "string",
     // displayChart: true,
-    // chartType: 'pie'
+    // chartType: "pie",
   },
   {
     label: "Name",
     key: "name",
     dataType: "string",
     // displayChart: true,
-    // chartType: 'line'
+    // chartType: "pie",
   },
   {
     label: "Amount",
     key: "amount",
     dataType: "string",
+    // Properties for Chart config
     displayChart: true,
-    chartType: "pie",
+    chartType: "bar",
+    labelKey: "category",
   },
   {
     label: "Category",
