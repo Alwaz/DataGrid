@@ -25,7 +25,7 @@ To configure the columns to display in your grid. Each column is defined by an o
 
 * `label` (string): The label or header text for the column.
 * `key` (string): A unique key for the column. This key is used to identify the data associated with the column.
-`datatype` (string): The data type of the column. This helps with data formatting and rendering. Supported types include:
+* `datatype` (string): The data type of the column. This helps with data formatting and rendering. Supported types include:
  - `string`: Text or string data.
   - `number`: Numeric data.
   - `date`: Date data.
@@ -44,11 +44,51 @@ const columns: IColumnConfig[] = [
   {
     label: 'Date', 
     key: 'date', 
-    type: 'date'
+    dataType: 'date'
   },
 ];
 ```
+###  Handling Nested Keys
 
+If your data contains nested keys within objects, as showed in example below. 
+
+
+```javascript
+[
+  {
+      "name": "John",
+      "age": 30,
+      "address": {
+        "city": "New York"
+      }
+   },
+]
+
+```
+
+To extract the "city" property within the "address" object you can specify the `key` accordingly using dot notation (.).
+
+#### Example
+
+```javascript
+const columns: IColumnConfig[] = [
+  {
+    label: 'Name',
+    key: 'name', 
+    dataType: 'string'
+  },
+  {
+    label: 'age', 
+    key: 'Age', 
+    dataType: 'number'
+  },
+   {
+    label: 'City', 
+    key: 'address.city', 
+    dataType: 'object'
+  },
+];
+```
 
 
 
