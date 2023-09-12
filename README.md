@@ -1,7 +1,7 @@
 
 # React DataGrid
 
-The `DataGrid` component is a configurable and responsive data grid widget for displaying tabular data with optional suport to chart integration.
+The `DataGrid` component is a configurable and responsive data grid widget for displaying tabular data with optional support for chart integration.
 
 
 ## Usage
@@ -57,7 +57,7 @@ const columns: IColumnConfig[] = [
 
 ###  Handling Nested Keys
 
-If your data contains nested keys within objects, as showed in example below. 
+If your data contains nested keys within objects, as shown in the example below. 
 
 
 ```javascript
@@ -97,20 +97,20 @@ const columns: IColumnConfig[] = [
 ```
 
 
-## Support for displaying Charts
+## Support for rendering Charts
 
 You can configure columns to visualize data in Chart form.
 
-To specify what column should display chart you can provide the following propertise to column objects.
+To specify what column should display the chart, you can provide the following properties to the column config.
 
-* `displayChart` (boolean): Set it to true to render chart for this column.
+* `displayChart` (boolean): Set it to true to render the chart for this column.
 * `chartType` (string): Specify the type of chart. Supported types are (bar, line, pie)
-* `chartlabelKey` (string): Specify the column name to display on x-axis in chart.
+* `chartlabelKey` (string): Specify the column name to display on x-axis of chart.
 
 
 
 #### Example
-This example will render Bar Chart with Age column on y-axis and address on x-axis.
+This example will render a Bar Chart with Age column on y-axis and address on the x-axis.
 ```javascript
 const columns: IColumnConfig[] = [
   {
