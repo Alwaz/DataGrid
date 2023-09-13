@@ -10,7 +10,7 @@ const Table: React.FC<ITableProps> = ({ columns, data }) => {
     const mappedData = flattenNestedKeys(data, columns);
 
     return (
-        <Card className="h-80 w-90 ">
+        <Card className="w-full h-full">
             <CardBody className="overflow-scroll px-0">
                 <table className="w-full min-w-max  table-auto text-left">
                     <thead>
@@ -20,7 +20,7 @@ const Table: React.FC<ITableProps> = ({ columns, data }) => {
                                     <Typography
                                         variant="h4"
                                         color="blue-gray"
-                                        className="font-normal leading-none opacity-70"
+                                        className="font-normal uppercase text-base leading-none opacity-70"
                                     >
                                         {column.label}
                                     </Typography>

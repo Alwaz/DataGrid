@@ -57,11 +57,15 @@ const DataGrid: React.FC<IDataGridProps> = ({ apiEndpoint, columns, jsonPath }) 
 
     return (
         <>
-            <Table columns={columns} data={data} />
+            <div className='h-[500px] p-10 flex justify-center items-center bg-blue-gray-50'>
+                <Table columns={columns} data={data} />
+            </div>
 
             {columns.map((column) => (
                 column.displayChart && (
-                    <ChartComponent key={column.key} column={column} chartData={chartData} data={data} />
+                    <div key={column.key} className='bg-blue-gray-50 p-10'>
+                        <ChartComponent column={column} chartData={chartData} data={data} />
+                    </div>
                 )
             ))}
         </>

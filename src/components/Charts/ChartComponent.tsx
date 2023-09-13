@@ -1,11 +1,7 @@
 import React from 'react'
 import { IChartProps } from '../../utils/constants';
-import BarChart from './BarChart';
-import PieChart from './PieChart';
-import LineChart from './LineChart';
 
-
-
+import { BarChart, PieChart, LineChart } from '../Charts/index'
 
 const ChartComponent: React.FC<IChartProps> = ({ column, chartData }) => {
     return (
