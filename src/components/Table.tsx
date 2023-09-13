@@ -1,8 +1,9 @@
 import React from 'react'
 import { ITableProps, flattenNestedKeys } from '../utils/constants'
 import { Card, CardBody, Typography } from '@material-tailwind/react'
+import { Table as ResponsiveTable, Thead, Tbody, Tr, Th, Td } from 'react-super-responsive-table';
 
-
+import 'react-super-responsive-table/dist/SuperResponsiveTableStyle.css';
 
 const Table: React.FC<ITableProps> = ({ columns, data }) => {
 
@@ -12,11 +13,11 @@ const Table: React.FC<ITableProps> = ({ columns, data }) => {
     return (
         <Card className="w-full h-full">
             <CardBody className="overflow-scroll px-0">
-                <table className="w-full min-w-max  table-auto text-left">
-                    <thead>
-                        <tr>
+                <ResponsiveTable>
+                    <Thead>
+                        <Tr>
                             {columns.map((column) => (
-                                <th key={column.key} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                                <Th key={column.key} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
                                     <Typography
                                         variant="h4"
                                         color="blue-gray"
@@ -25,16 +26,16 @@ const Table: React.FC<ITableProps> = ({ columns, data }) => {
                                         {column.label}
                                     </Typography>
 
-                                </th>
+                                </Th>
                             ))}
-                        </tr>
-                    </thead>
-                    <tbody>
+                        </Tr>
+                    </Thead>
+                    <Tbody>
                         {mappedData?.map((item: object, rowIndex: number) => (
                             // TODO: Index shouldn't be used as key
-                            <tr key={rowIndex}>
+                            <Tr key={rowIndex}>
                                 {columns.map((column) => (
-                                    <td key={column?.key}>
+                                    <Td key={column?.key}>
                                         <Typography
                                             variant="small"
                                             color="blue-gray"
@@ -42,12 +43,12 @@ const Table: React.FC<ITableProps> = ({ columns, data }) => {
                                         >
                                             {item[column.key]}
                                         </Typography>
-                                    </td>
+                                    </Td>
                                 ))}
-                            </tr>
+                            </Tr>
                         ))}
-                    </tbody>
-                </table>
+                    </Tbody>
+                </ResponsiveTable>
             </CardBody>
         </Card>
     )
