@@ -1,27 +1,132 @@
-# React + TypeScript + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# React DataGrid
 
-Currently, two official plugins are available:
+The `DataGrid` component is a configurable and responsive data grid widget for displaying tabular data with optional support for chart integration.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## Expanding the ESLint configuration
+## Usage
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Import the `DataGrid` component.
 
-- Configure the top-level `parserOptions` property like this:
-
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
+```bash
+  import DataGrid from "./components/DataGrid"
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+The DataGrid component accepts the following props:
+
+|     Name    |   Type  | Required | Description                                                                                                              |
+|:-----------:|:-------:|:--------:|--------------------------------------------------------------------------------------------------------------------------|
+|   columns   |  Array  |   true   | An array of column required to configure objects.                                                                        |
+| apiEndpoint |  String |   true   | The API endpoint required to fetch data from.                                                                            |
+|   jsonPath  | String  |   true   | The JSON path is required it is the "root" path to parse the data. It should be formatted to select an array of objects. |
+
+To format your JSON path correctly, you can use a JSON path evaluator tool like [JSONPath Evaluator](https://jsonpath.com/). Ensure that your JSON path selects an array of objects to correctly populate the DataGrid.
+
+
+### Column configuration
+
+To configure the columns to display in your grid. Each column is defined by an object in the `columns` array.
+
+|   Name   |                      Type                     | Required | Description                                                                                         |
+|:--------:|:---------------------------------------------:|:--------:|-----------------------------------------------------------------------------------------------------|
+|   label  |                     String                    |   true   | The label or header text required for the column.                                                   |
+|    key   |                     String                    |   true   | A required unique key for column. This key is used to identify the data associated with the column. |
+| datatype | String \| Number \| Boolean \| Object \| Date |   true   | The data type of the column. This helps with data formatting and rendering.                         |
+
+
+
+
+
+### Example Column Configuration
+
+```javascript
+const columns: IColumnConfig[] = [
+  {
+    label: 'Name',
+    key: 'name', 
+    dataType: 'string'
+  },
+  {
+    label: 'Date', 
+    key: 'date', 
+    dataType: 'date'
+  },
+];
+```
+
+###  Handling Nested Keys
+
+If your data contains nested keys within objects, as shown in the example below. 
+
+
+```javascript
+[
+  {
+      "name": "John",
+      "age": 30,
+      "address": {
+        "city": "New York"
+      }
+   },
+]
+
+```
+
+
+you can specify the `key` accordingly using dot notation (.).
+
+```javascript
+const columns: IColumnConfig[] = [
+  {
+    label: 'Name',
+    key: 'name', 
+    dataType: 'string'
+  },
+  {
+    label: 'age', 
+    key: 'Age', 
+    dataType: 'number'
+  },
+   {
+    label: 'City', 
+    key: 'address.city', 
+    dataType: 'object'
+  },
+];
+```
+
+
+## Support for rendering Charts
+
+You can configure columns to visualize data in Chart form.
+
+To specify what column should display the chart, you can provide the following properties to the column config.
+
+|      Name     |   Type  | Required | Description                                                                                          |
+|:-------------:|:-------:|:--------:|------------------------------------------------------------------------------------------------------|
+|  displayChart | Boolean |   false  | If true, renders the chart for this column.                                                          |
+|   chartType   |  String |   true   | Required if displayChart is true, specifies the type of chart. Supported types are (bar, line, pie). |
+| chartlabelKey | String  |   true   | Required if displayChart is true, specifies the column name to display on x-axis of the chart.       |
+
+
+
+
+#### Example
+This example will render a Bar Chart with Age column on y-axis and address on the x-axis.
+```javascript
+const columns: IColumnConfig[] = [
+  {
+    label: "address",
+    key: "address",
+    dataType: "string",
+  },
+  {
+    label: "Age",
+    key: "age",
+    dataType: "number",
+    displayChart: true,
+    chartType: "bar",
+    chartlabelKey: "address",
+  },
+];
+```
