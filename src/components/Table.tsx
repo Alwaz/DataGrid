@@ -29,7 +29,7 @@ const Table: React.FC<ITableProps> = ({ columns, data }) => {
                             ))}
                         </tr>
                     </thead>
-                    <tbody >
+                    <tbody>
                         {mappedData?.map((item: object, rowIndex: number) => (
                             // TODO: Index shouldn't be used as key
                             <tr key={rowIndex}>
@@ -49,7 +49,6 @@ const Table: React.FC<ITableProps> = ({ columns, data }) => {
                     </tbody>
                 </table>
             </CardBody>
-
         </Card>
     )
 }

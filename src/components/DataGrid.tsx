@@ -1,10 +1,12 @@
 
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, lazy, useEffect, useState } from 'react'
 import axios from 'axios'
 import jsonpath from 'jsonpath';
 import { IChartData, IDataGridProps, IDataRow } from '../utils/constants'
 import Table from './Table';
-import ChartComponent from './Charts/ChartComponent'
+
+// Lazy loading chart component to reduce actual bundle size.
+const LazyChartComponent = lazy(() => import('./Charts/ChartComponent'));
 
 
 
@@ -14,8 +16,8 @@ const DataGrid: React.FC<IDataGridProps> = ({ apiEndpoint, columns, jsonPath }) 
 
     const getData = async () => {
         try {
-            const res = await axios.get(apiEndpoint);
-            const apiData = res?.data
+            const response = await axios.get(apiEndpoint);
+            const apiData = response?.data
             // JSONPath to extract data for each column
             const columnData = jsonpath.query(apiData, jsonPath);
             setData(columnData)
@@ -26,8 +28,8 @@ const DataGrid: React.FC<IDataGridProps> = ({ apiEndpoint, columns, jsonPath }) 
 
 
     useEffect(() => {
-        getData()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        getData();
+        //eslint-disable-next-line react-hooks/exhaustive-deps
     }, [apiEndpoint, columns])
 
 
@@ -35,7 +37,7 @@ const DataGrid: React.FC<IDataGridProps> = ({ apiEndpoint, columns, jsonPath }) 
         // Preparing labels and datasets for Chart
         const chartDataConfig: IChartData = {};
         columns.forEach((column) => {
-            if (column.displayChart) {
+            if (column.renderChart) {
                 const chartLabels = data.map((item) => item[column?.chartlabelKey]);
                 const chartDataset = {
                     label: column.label,
@@ -57,14 +59,16 @@ const DataGrid: React.FC<IDataGridProps> = ({ apiEndpoint, columns, jsonPath }) 
 
     return (
         <>
-            <div className='h-[500px] p-10 flex justify-center items-center bg-blue-gray-50'>
+            <div className='h-[500px] p-10 flex flex-col justify-center items-center bg-blue-gray-50'>
                 <Table columns={columns} data={data} />
             </div>
 
             {columns.map((column) => (
-                column.displayChart && (
+                column.renderChart && (
                     <div key={column.key} className='bg-blue-gray-50 p-10'>
-                        <ChartComponent column={column} chartData={chartData} data={data} />
+                        <Suspense fallback={<div>Loading...</div>}>
+                            <LazyChartComponent column={column} chartData={chartData} data={data} />
+                        </Suspense>
                     </div>
                 )
             ))}

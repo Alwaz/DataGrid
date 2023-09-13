@@ -1,9 +1,9 @@
 // constants
-// export const API = `https://us-central1-fir-apps-services.cloudfunctions.net/transactions`;
+export const API = `https://us-central1-fir-apps-services.cloudfunctions.net/transactions`;
 
 //export const API = `https://jsonplaceholder.typicode.com/posts`;
 
-export const API = `https://mocki.io/v1/aae57b4a-c429-48df-a24e-026d02a38840`;
+//export const API = `https://mocki.io/v1/aae57b4a-c429-48df-a24e-026d02a38840`;
 
 // types
 export type Primitive = string | number | boolean | bigint | Date | undefined;
@@ -14,9 +14,11 @@ export interface IColumnConfig {
   label: string;
   key: string;
   dataType: Primitive;
-  displayChart?: boolean;
+  renderChart?: boolean;
   chartType?: ChartType;
-  chartlabelKey?: Primitive; // config the column name for chart label
+  chartlabelKey?: string; // config the column name for x-axis chart label
+  title?: string;
+  subTitle?: string;
 }
 
 export interface IDataGridProps {
@@ -54,28 +56,39 @@ export interface IChartProps {
 // Column Config
 export const columns: IColumnConfig[] = [
   {
+    label: "ID",
+    key: "id",
+    dataType: "number",
+  },
+  {
     label: "Name",
     key: "name",
     dataType: "string",
   },
   {
-    label: "address",
-    key: "address",
+    label: "Category",
+    key: "category",
     dataType: "string",
   },
   {
-    label: "Age",
-    key: "age",
+    label: "Amount",
+    key: "amount",
     dataType: "number",
-    // Properties for Chart config
-    displayChart: true,
-    chartType: "bar",
-    chartlabelKey: "address",
+  },
+  {
+    label: "Type",
+    key: "type",
+    dataType: "string",
+  },
+  {
+    label: "Created At",
+    key: "created_at",
+    dataType: "date",
   },
 ];
 
 // Flatten nested object keys.
-export const flattenNestedKeys = (data: object, config: IColumnConfig[]) => {
+export const flattenNestedKeys = (data: IDataRow, config: IColumnConfig[]) => {
   return data.map((item) => {
     const mappedItem = {};
     config.forEach((column) => {
