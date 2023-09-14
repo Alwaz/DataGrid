@@ -17,8 +17,6 @@ export interface IColumnConfig {
   renderChart?: boolean;
   chartType?: ChartType;
   chartlabelKey?: string; // config the column name for x-axis chart label
-  title?: string;
-  subTitle?: string;
 }
 
 export interface IDataGridProps {
@@ -74,6 +72,9 @@ export const columns: IColumnConfig[] = [
     label: "Amount",
     key: "amount",
     dataType: "number",
+    renderChart: true,
+    chartType: "line",
+    chartlabelKey: "category",
   },
   {
     label: "Type",

@@ -13,7 +13,6 @@ const PieChart: React.FC<IChartProps> = ({ chartDataset }) => {
             Pie Chart
             <div className='w-full h-full max-w-3xl'>
                 <Pie data={chartDataset} options={{ maintainAspectRatio: false }} />
-
             </div>
         </div>
     )

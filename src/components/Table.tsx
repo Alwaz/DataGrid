@@ -25,7 +25,6 @@ const Table: React.FC<ITableProps> = ({ columns, data }) => {
                                     >
                                         {column.label}
                                     </Typography>
-
                                 </Th>
                             ))}
                         </Tr>

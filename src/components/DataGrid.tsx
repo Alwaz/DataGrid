@@ -5,7 +5,6 @@ import jsonpath from 'jsonpath';
 import { IChartData, IDataGridProps, IDataRow } from '../utils/constants'
 import Table from './Table';
 
-// Lazy loading chart component to reduce actual bundle size.
 const LazyChartComponent = lazy(() => import('./Charts/ChartComponent'));
 
 
@@ -35,10 +34,11 @@ const DataGrid: React.FC<IDataGridProps> = ({ apiEndpoint, columns, jsonPath }) 
 
     useEffect(() => {
         // Preparing labels and datasets for Chart
+        const filteredColumns = columns.filter((column) => column.renderChart)
         const chartDataConfig: IChartData = {};
-        columns.forEach((column) => {
+        filteredColumns.forEach((column) => {
             if (column.renderChart) {
-                const chartLabels = data.map((item) => item[column?.chartlabelKey]);
+                const chartLabels = data?.map((item) => item[column?.chartlabelKey]);
                 const chartDataset = {
                     label: column.label,
                     data: data.map((item) => item[column.key]),
@@ -46,14 +46,12 @@ const DataGrid: React.FC<IDataGridProps> = ({ apiEndpoint, columns, jsonPath }) 
                     borderColor: '#62749d',
                     borderWidth: 1,
                 };
-
                 chartDataConfig[column.key] = {
                     labels: chartLabels,
                     datasets: [chartDataset],
                 };
             }
         });
-
         setChartData(chartDataConfig);
     }, [columns, data]);
 

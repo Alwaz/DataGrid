@@ -12,7 +12,6 @@ const LineChart: React.FC<IChartProps> = ({ chartDataset }) => {
             Line Chart
             <div className='w-full h-full max-w-3xl'>
                 <Line data={chartDataset} options={{ maintainAspectRatio: false }} />
-
             </div>
         </div>
     )
