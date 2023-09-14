@@ -2,6 +2,14 @@
 
 The `DataGrid` component is a configurable and responsive data grid widget for displaying tabular data with optional support for chart integration.
 
+## Packages Used
+* [tailwindcss](https://tailwindcss.com/)
+* [@material-tailwind/react](https://www.material-tailwind.com/)
+* [axios](https://www.npmjs.com/package/axios)
+* [jsonpath](https://www.npmjs.com/package/jsonpath)
+* [react-chartjs-2](https://react-chartjs-2.js.org/)
+* [react-super-responsive-table](https://www.npmjs.com/package/react-super-responsive-table)
+
 ## Usage
 
 Import the `DataGrid` component.
