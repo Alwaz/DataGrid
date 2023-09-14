@@ -5,7 +5,7 @@ import { BarChart, PieChart, LineChart } from '../Charts/index'
 
 const ChartComponent: React.FC<IChartProps> = ({ column, chartData }) => {
     return (
-        < >
+        <>
             <h2 className='p-5'>{column.label} Chart</h2>
             {chartData[column.key] && (
                 <>

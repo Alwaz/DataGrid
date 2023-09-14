@@ -1,8 +1,8 @@
 // constants
+
+//  Tested with the Following API's
 export const API = `https://us-central1-fir-apps-services.cloudfunctions.net/transactions`;
-
 //export const API = `https://jsonplaceholder.typicode.com/posts`;
-
 //export const API = `https://mocki.io/v1/aae57b4a-c429-48df-a24e-026d02a38840`;
 
 // types
@@ -80,11 +80,6 @@ export const columns: IColumnConfig[] = [
     label: "Type",
     key: "type",
     dataType: "string",
-  },
-  {
-    label: "Created At",
-    key: "created_at",
-    dataType: "date",
   },
 ];
 
