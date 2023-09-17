@@ -16,14 +16,14 @@ const Table: React.FC<ITableProps> = ({ columns, data }) => {
                 <ResponsiveTable>
                     <Thead>
                         <Tr>
-                            {columns.map((column) => (
-                                <Th key={column.key} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
+                            {columns?.map((column) => (
+                                <Th key={column?.key} className="border-b border-blue-gray-100 bg-blue-gray-50 p-4">
                                     <Typography
                                         variant="h4"
                                         color="blue-gray"
                                         className="font-normal uppercase text-base leading-none opacity-70"
                                     >
-                                        {column.label}
+                                        {column?.label}
                                     </Typography>
                                 </Th>
                             ))}
@@ -33,14 +33,14 @@ const Table: React.FC<ITableProps> = ({ columns, data }) => {
                         {mappedData?.map((item: object, rowIndex: number) => (
                             // TODO: Index shouldn't be used as key
                             <Tr key={rowIndex}>
-                                {columns.map((column) => (
+                                {columns?.map((column) => (
                                     <Td key={column?.key}>
                                         <Typography
                                             variant="small"
                                             color="blue-gray"
                                             className="font-normal"
                                         >
-                                            {item[column.key]}
+                                            {item[column?.key]}
                                         </Typography>
                                     </Td>
                                 ))}

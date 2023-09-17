@@ -2,24 +2,28 @@
 import React, { Suspense, lazy, useEffect, useState } from 'react'
 import axios from 'axios'
 import jsonpath from 'jsonpath';
-import { IChartData, IDataGridProps, IDataRow } from '../utils/constants'
+import { IChartData, IDataRow } from '../utils/constants'
 import Table from './Table';
 
 const LazyChartComponent = lazy(() => import('./Charts/ChartComponent'));
 
-
-
-const DataGrid: React.FC<IDataGridProps> = ({ apiEndpoint, columns, jsonPath }) => {
+const DataGrid: React.FC = () => {
     const [data, setData] = useState<IDataRow[]>([])
     const [chartData, setChartData] = useState<IChartData>({});
 
+    // get config & columns from Local storage.
+    const base_config = JSON.parse(localStorage.getItem('base_config'));
+    const columns = JSON.parse(localStorage.getItem('columns'));
+
+
     const getData = async () => {
         try {
-            const response = await axios.get(apiEndpoint);
-            const apiData = response?.data
-            // JSONPath to extract data for each column
-            const columnData = jsonpath.query(apiData, jsonPath);
-            setData(columnData)
+            if (base_config?.api && base_config?.path) {
+                const response = await axios.get(base_config?.api);
+                const apiData = response?.data;
+                const columnData = jsonpath.query(apiData, base_config?.path);
+                setData(columnData)
+            } return
         } catch (error) {
             console.error(error)
         }
@@ -29,16 +33,15 @@ const DataGrid: React.FC<IDataGridProps> = ({ apiEndpoint, columns, jsonPath }) 
     useEffect(() => {
         getData();
         //eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [apiEndpoint, columns])
+    }, [base_config?.api, base_config?.path])
 
 
     useEffect(() => {
-        // Preparing labels and datasets for Chart
-        const filteredColumns = columns.filter((column) => column.renderChart)
+        const filteredColumns = columns?.filter((column) => column?.renderChart)
         const chartDataConfig: IChartData = {};
-        filteredColumns.forEach((column) => {
-            if (column.renderChart) {
-                const chartLabels = data?.map((item) => item[column?.chartlabelKey]);
+        filteredColumns?.forEach((column) => {
+            if (column?.renderChart) {
+                const chartLabels = data?.map((item) => item[column?.chartLabelKey]);
                 const chartDataset = {
                     label: column.label,
                     data: data.map((item) => item[column.key]),
@@ -53,7 +56,7 @@ const DataGrid: React.FC<IDataGridProps> = ({ apiEndpoint, columns, jsonPath }) 
             }
         });
         setChartData(chartDataConfig);
-    }, [columns, data]);
+    }, [data]);
 
     return (
         <>
@@ -61,7 +64,7 @@ const DataGrid: React.FC<IDataGridProps> = ({ apiEndpoint, columns, jsonPath }) 
                 <Table columns={columns} data={data} />
             </div>
 
-            {columns.map((column) => (
+            {columns?.map((column) => (
                 column.renderChart && (
                     <div key={column.key} className='bg-blue-gray-50 p-10'>
                         <Suspense fallback={<div>Loading...</div>}>

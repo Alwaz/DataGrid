@@ -1,14 +1,11 @@
-import DataGrid from "./components/DataGrid"
-import { API, columns } from "./utils/constants"
+import DataGridConfig from "./components/DataGridConfig/DataGridConfig"
 
 function App() {
 
   return (
-    <DataGrid
-      apiEndpoint={API}
-      columns={columns}
-      jsonPath={'$.data.*'}
-    />
+    <div className="h-screen bg-blue-gray-50">
+      <DataGridConfig />
+    </div>
   )
 }
 

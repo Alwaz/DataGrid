@@ -1,10 +1,3 @@
-// constants
-
-//  Tested with the Following API's
-export const API = `https://us-central1-fir-apps-services.cloudfunctions.net/transactions`;
-//export const API = `https://jsonplaceholder.typicode.com/posts`;
-//export const API = `https://mocki.io/v1/aae57b4a-c429-48df-a24e-026d02a38840`;
-
 // types
 export type Primitive = string | number | boolean | bigint | Date | undefined;
 export type ChartType = "bar" | "line" | "pie";
@@ -50,38 +43,6 @@ export interface IChartData {
 export interface IChartProps {
   chartDataset: IChartData;
 }
-
-// Column Config
-export const columns: IColumnConfig[] = [
-  {
-    label: "ID",
-    key: "id",
-    dataType: "number",
-  },
-  {
-    label: "Name",
-    key: "name",
-    dataType: "string",
-  },
-  {
-    label: "Category",
-    key: "category",
-    dataType: "string",
-  },
-  {
-    label: "Amount",
-    key: "amount",
-    dataType: "number",
-    renderChart: true,
-    chartType: "line",
-    chartlabelKey: "category",
-  },
-  {
-    label: "Type",
-    key: "type",
-    dataType: "string",
-  },
-];
 
 // Flatten nested object keys.
 export const flattenNestedKeys = (data: IDataRow, config: IColumnConfig[]) => {
