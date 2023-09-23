@@ -5,7 +5,7 @@ The DataGrid component is a configurable and responsive data grid widget for dis
 
 ## Getting Started
 
-#### Step 1: Enter the following Information
+### Step 1: Enter the following Information
 * **Enter Number of columns** 
     - Specify How many columns do you want in table?
 * **API End point**
@@ -17,9 +17,9 @@ The DataGrid component is a configurable and responsive data grid widget for dis
 
 
 
-#### Step 2: Click on Add Column button
+### Step 2: Click on Add Column button
 
-#### Step 3: Fill out the following Data for to Configure each Column.
+### Step 3: Fill out the following Data for to Configure each Column.
 
 * **Label**
     - Represents the name of your column.
@@ -34,7 +34,7 @@ If you want to display Chart for any specific column, just check the Render Char
 * **Chart Label Key** (Value to display on x-axis)
 
 
-#### Step 4: Click on Generate table.
+### Step 4: Click on Generate table.
 
 
 ## Packages Used
