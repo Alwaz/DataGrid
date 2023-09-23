@@ -11,8 +11,8 @@ const Table: React.FC<ITableProps> = ({ columns, data }) => {
     const mappedData = flattenNestedKeys(data, columns);
 
     return (
-        <Card className="w-full h-full">
-            <CardBody className="overflow-scroll px-0">
+        <Card className="w-full h-full ">
+            <CardBody className="overflow-auto  px-0">
                 <ResponsiveTable>
                     <Thead>
                         <Tr>
@@ -34,7 +34,7 @@ const Table: React.FC<ITableProps> = ({ columns, data }) => {
                             // TODO: Index shouldn't be used as key
                             <Tr key={rowIndex}>
                                 {columns?.map((column) => (
-                                    <Td key={column?.key}>
+                                    <Td key={column?.key} className={'border-b border-blue-gray-50 py-2'}>
                                         <Typography
                                             variant="small"
                                             color="blue-gray"
